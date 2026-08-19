@@ -1,64 +1,118 @@
-# 📡 Advanced Async Network Scanner & Banner Grabber
+# ⚡ VOID-RECON (v4.0 Overpowered Edition)
 
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue?style=for-the-badge&logo=python)
-![Security Focus](https://img.shields.io/badge/Security-Network%20Reconnaissance-red?style=for-the-badge&logo=shield)
+![Security Focus](https://img.shields.io/badge/Security-OSINT%20%26%20Reconnaissance-red?style=for-the-badge&logo=shield)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
-**Advanced Network Scanner** is a high-performance Python-based port scanning tool engineered for **Network Reconnaissance** and **Vulnerability Assessment**. Powered by high-speed **Asynchronous I/O (`asyncio`)**, it includes service detection and banner grabbing capabilities.
+> Advanced OSINT, Infrastructure Fingerprinting & Attack Surface Intelligence Engine
+
+**VoidRecon** adalah *tool reconnaissance* cepat dan modern yang dirancang untuk kebutuhan Red Teaming, Bug Bounty Hunting, dan Cybersecurity Auditing. Alat ini secara otomatis melakukan analisis passive & active OSINT, mengekstraksi data SSL, mendeteksi header keamanan, memindai port, mencari endpoint sensitif, hingga menghubungkan target dengan database ancaman Shodan InternetDB.
 
 ---
 
-## ✨ Key Features
+## 🔥 Fitur Utama (v4.0 OP Engine)
 
-* ⚡ **High-Speed Asynchronous Scanning:** Built on Python's `asyncio` engine with configurable concurrency limits to scan thousands of ports in seconds.
-* 🔍 **Banner Grabbing & Service Detection:** Identifies running service names and extracts active banner/header responses from open ports.
-* 📊 **Rich Interactive Terminal UI:** Features real-time progress indicators and structured, color-coded audit reports.
-* 📜 **System Logging:** Records all successful scan events systematically in a `scanner.log` file.
-* 🎛️ **Flexible Port Parsing:** Supports single ports, comma-separated lists (`80,443`), and numerical ranges (`1-10000`).
+* 🌐 **Flexible Target Input & URL Sanitizer:** Bebas memasukkan target berupa nama domain (`example.com`), URL lengkap (`[https://example.com/path](https://example.com/path)`), atau subdomain.
+* 📍 **IP Geolocation & Infrastructure OSINT:** Identifikasi lokasi fisik server (Negara, Kota) serta penyedia layanan jaringan (ISP/ASN).
+* 💥 **Shodan Threat Intelligence (Free/No API Key):** Menarik tag infrastruktur, CPEs, dan kerentanan publik (CVEs) yang terdaftar di Shodan secara instan.
+* 🔐 **SSL/TLS Certificate Intelligence:** Mengekstraksi informasi penerbit (*Issuer*), masa berlaku sertifikat, dan daftar *Subject Alternative Names (SANs)*.
+* 🛡️ **Web Stack & Security Headers Audit:**
+  * Audit otomatis header keamanan utama (`HSTS`, `CSP`, `X-Frame-Options`, `X-Content-Type-Options`).
+  * Fingerprinting teknologi web (PHP, Node.js/Express, Laravel, WordPress, dll.).
+  * Deteksi Web Application Firewall (Cloudflare, Fastly, Akamai).
+* 🔍 **Sensitive Endpoints Discovery:** Pemindaian file sensitif secara asynchronous (`/robots.txt`, `/.env`, `/.git/config`, `/admin`, dll.).
+* 📡 **Passive Subdomain Enumeration:** Mengakses Certificate Transparency Logs (`crt.sh`) untuk menemukan puluhan subdomain aktif.
+* 🔓 **Async Port Scanner:** Pemindaian port kritis berkecepatan tinggi menggunakan `asyncio`.
+* 📊 **Rich Terminal Dashboard & JSON Export:** Tampilan CLI yang interaktif berbasis `rich` serta ekspor hasil lengkap ke file `void_report.json`.
 
 ---
 
-## 🛠️ Prerequisites & Installation
+## 🛠️ Instalasi
 
-Ensure you have **Python 3.10+** installed.
+### 1. Clone Repositori
+```bash
+git clone https://github.com/Izzatiin/void-recon.git
+cd void-recon
+```
 
-### 1. Clone this repository
-git clone [https://github.com/Izzatiin/Python-network-port-scanner.git](https://github.com/Izzatiin/Python-network-port-scanner.git)
-cd Python-network-port-scanner
-
-### 2. Install Dependencies
+### 2. Install Dependensi
+```bash
 pip install rich
+```
 
 ---
 
-## 📖 Usage Guide
+## 🚀 Cara Penggunaan
 
-### 1. Standard Scan (Default Ports 1-1024)
-python network_scanner.py -t scanme.nmap.org
+```bash
+# Pemindaian domain standar:
+python void_recon.py -t github.com
 
-### 2. Custom Port Range Scan
-python network_scanner.py -t 192.168.1.1 -p 1-10000
-
-### 3. High-Concurrency Scan for Specific Ports
-python network_scanner.py -t 10.10.10.1 -p 21,22,80,443,8080 -c 500
-
----
-
-## 🖥️ Audit Report Example
-
-| Port | Status | Service | Banner / Version |
-| :---: | :---: | :---: | :--- |
-| **22** | **OPEN** | `SSH` | `SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5` |
-| **80** | **OPEN** | `HTTP` | `HTTP/1.1 200 OK (Apache/2.4.41)` |
-| **8080** | **OPEN** | `HTTP-ALT` | `HTTP/1.1 400 Bad Request` |
-
-> 📌 **Log File:** All activity is automatically logged to `scanner.log`.
+# Menggunakan URL lengkap (otomatis dibersihkan):
+python void_recon.py -t https://github.com/
+```
 
 ---
 
-## 📝 License
+## 📸 Contoh Tampilan Output (CLI)
 
-Distributed under the MIT License. See `LICENSE` for more information.
+```text
+⚡ VOID-RECON v4.0 (OVERPOWERED ENGINE)
+Attack Surface Intelligence & Shodan Threat Profiler
+Calculated Risk Score: 0 / 100
+
+🎯 Target Asset: github.com (Input: https://github.com)
+├── 🌐 Resolved IPv4: 20.205.243.166
+├── 📍 Infrastructure & Geolocation
+│   ├── Location: Singapore, Singapore
+│   └── Provider: Microsoft Corporation (Microsoft Azure Cloud)
+├── 💥 Shodan Threat & CVE Intelligence
+│   └── Infrastructure Tags: cloud
+└── 🌐 Web Fingerprint & Stack
+    ├── Title: No Title Found
+    ├── Server: github.com
+    └── WAF Shield: None / Direct Server
+
+🔍 Discovered Sensitive Endpoints
+┌──────────────────┬─────────────┐
+│ Path / Endpoint  │ HTTP Status │
+├──────────────────┼─────────────┤
+│ /robots.txt      │     200     │
+└──────────────────┴─────────────┘
+
+🛡️ Security Headers Audit
+┌──────────────────────────────────┬──────────────┐
+│ Security Header Policy           │ Audit Status │
+├──────────────────────────────────┼──────────────┤
+│ Strict-Transport-Security (HSTS) │ PASS (PRESENT)│
+│ Content-Security-Policy (CSP)    │ PASS (PRESENT)│
+│ X-Frame-Options                  │ PASS (PRESENT)│
+│ X-Content-Type-Options           │ PASS (PRESENT)│
+└──────────────────────────────────┴──────────────┘
+
+🔓 Open Attack Surface Ports
+┌──────┬────────────────┐
+│ Port │ Active Service │
+├──────┼────────────────┤
+│  22  │ SSH            │
+│  80  │ HTTP           │
+│ 443  │ HTTPS          │
+└──────┴────────────────┘
+
+✅ OVERPOWERED Recon complete! Report saved to void_report.json
+```
+
+---
+
+## 📄 File Laporan (`void_report.json`)
+
+Setiap kali pemindaian selesai, seluruh data mentah akan disimpan ke dalam file `void_report.json` untuk analisis lanjutan.
+
+---
+
+## ⚠️ Disclaimer
+
+Penggunaan alat ini harus mematuhi etika hukum yang berlaku. Tool ini dibuat semata-mata untuk tujuan edukasi, riset keamanan, dan pemindaian pada target yang diizinkan (*Authorized Testing* / *Bug Bounty*).
 
 ---
 
